@@ -10,44 +10,23 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      height: 100vh;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
+      height: 100vh;
       overflow: hidden;
+    }
+
+    /* Canvas untuk partikel background */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Supaya tetap di belakang konten */
       background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-      position: relative;
-    }
-
-    /* Partikel neon */
-    body::before, 
-    body::after {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      top: -50%;
-      left: -50%;
-      background-image: radial-gradient(circle, rgba(0,255,255,0.8) 2px, transparent 3px),
-                        radial-gradient(circle, rgba(255,0,255,0.6) 2px, transparent 3px),
-                        radial-gradient(circle, rgba(0,255,163,0.7) 2px, transparent 3px);
-      background-size: 150px 150px;
-      animation: moveParticles 30s linear infinite;
-      opacity: 0.25;
-      filter: blur(1px);
-      z-index: 0;
-    }
-
-    body::after {
-      animation-duration: 50s;
-      opacity: 0.15;
-      filter: blur(2px);
-    }
-
-    @keyframes moveParticles {
-      from { transform: translateY(0); }
-      to   { transform: translateY(-200px); }
     }
 
     .container {
@@ -55,15 +34,12 @@
       max-width: 900px;
       padding: 20px;
       animation: fadeIn 1.5s ease-in-out forwards;
-      z-index: 1;
-      position: relative;
     }
 
     h1 {
       font-size: 2.8rem;
       margin-bottom: 40px;
-      background: linear-gradient(90deg, #f4f4f4, #00ffa3, #00eaff);
-      background-clip: text;
+      --background-clip: text;
       --text-fill-color: transparent;
       animation: glow 1s infinite alternate;
     }
@@ -90,6 +66,18 @@
       overflow: hidden;
     }
 
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 180deg at 50% 50%, #00f5ff, #00ffa3, #ff00f7, #00f5ff);
+      animation: rotate 6s linear infinite;
+      opacity: 0.15;
+    }
+
     .card:hover {
       transform: translateY(-12px) scale(1.07);
       box-shadow: 0 0 25px rgba(0,255,255,0.6);
@@ -102,52 +90,21 @@
       letter-spacing: 1px;
     }
 
-    /* Contact Person Styling */
     .contact {
-      margin-top: 30px;
-      padding: 18px 25px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.15);
-      backdrop-filter: blur(8px);
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.95rem;
-      color: #f1f1f1;
-      animation: fadeIn 2s ease-in-out;
+      margin-top: 20px;
+      font-size: 1rem;
     }
 
-    .contact h2 {
-      margin: 0;
-      font-size: 1.2rem;
-      background: linear-gradient(90deg, #00f5ff, #00ffa3);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      font-weight: 600;
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .contact-links a {
-      text-decoration: none;
+    .contact a {
       color: #00ffa3;
+      text-decoration: none;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.3s, transform 0.3s;
+      margin: 0 8px;
+      transition: color 0.3s;
     }
 
-    .contact-links a:hover {
-      color: #00f5ff;
-      transform: translateY(-2px);
+    .contact a:hover {
+      color: #ff00f7;
     }
 
     /* Animations */
@@ -158,11 +115,19 @@
 
     @keyframes glow {
       from { text-shadow: 0 0 10px #00f5ff, 0 0 20px #00ffa3, 0 0 30px #ff00f7; }
-      to   { text-shadow: 0 0 20px #00ffa3, 0 0 30px #ff00f7, 0 0 40px #00f5ff; }
+      to { text-shadow: 0 0 20px #00ffa3, 0 0 30px #ff00f7, 0 0 40px #00f5ff; }
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
   </style>
 </head>
 <body>
+  <!-- Canvas Partikel -->
+  <canvas id="particles"></canvas>
+
   <div class="container">
     <h1>🚀 Selamat Datang di Website Fatih</h1>
     <div class="cards">
@@ -172,14 +137,75 @@
     </div>
     <footer>⚡ 16. Fatih Juni Aufaa Fikrii | XI TJKT 1 ⚡</footer>
 
-    <!-- Contact Person -->
     <div class="contact">
-      <h2>📩 Contact Person</h2>
-      <div class="contact-links">
-        <a href="mailto:fatihjuniaufaafikrii@gmail.com">Email</a>
-        <a href="https://wa.me/6285701850833" target="_blank">WhatsApp</a>
-      </div>
+      📩 Contact Person: 
+      <br>
+      <a href="mailto:fatihjuniaufaafikrii@gmail.com">Email</a> | 
+      <a href="https://wa.me/6285701850833" target="_blank">WhatsApp</a>
     </div>
   </div>
+
+  <!-- Script Partikel -->
+  <script>
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  const colors = ["#00f5ff", "#00ffa3", "#ff00f7"];
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 2 + 1;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.speedX = (Math.random() - 0.5) * 0.6;
+      this.speedY = (Math.random() - 0.5) * 0.6;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = this.color;
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+
+  function init() {
+    particles = [];
+    for (let i = 0; i < 60; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  init();
+  animate();
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
+  });
+  </script>
 </body>
 </html>
